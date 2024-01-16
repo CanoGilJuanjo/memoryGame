@@ -8,9 +8,11 @@ function crearTablero(){
     //Extraemos las cartas del localStorage
     
     let nCartas = localStorage.getItem("cartas");
+    document.write("<div class='wrapCartas'>");
     for(let i = 0; i<nCartas; i++){
         document.write("<div class='carta'>"+nCartas+"</div>");
     }
+    document.write("</div>");
 }
 
 
