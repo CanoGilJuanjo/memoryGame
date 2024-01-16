@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Selector</title>
+        <style>
+            body{
+                margin: 2%;
+                width: auto;
+                height: 100%;
+                background-color: rgb(62, 62, 62);
+                color: white;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            li{
+                line-height: 50px;
+                list-style: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Bienvenido al Memory</h1>
+        <hr>
+        <h3>Instrucciones</h3>
+        <p>
+            En este juego tendras que seleccionar las cartas de manera que coincidan, 
+            tendras que seleccionar las cartas iguales para hacer parejas.
+        </p>
+        <p>
+            El tiempo limite para completar todas las parejas varia 
+            dependiendo de la cantidad de cartas que hayas seleccionado 
+            va de:
+        </p>
+        <form action="juego.html" method="post">
+            <ul>
+                <li>6 cartas 3 parejas ➤ 90 segundos <input type="radio" name="tJuego" id="tJuego" value="6"></li>
+                <li>10 cartas 5 parejas ➤ 120 segundos <input type="radio" name="tJuego" id="tJuego" value="10"></li>
+                <li>20 cartas 10 parejas ➤ 160 segundos <input type="radio" name="tJuego" id="tJuego" value="20"></li>
+            </ul>
+            <input type="submit" name="sub1" value="Jugar">
+        </form>
+        <script>
+            localStorage.setItem("cartas",0);
+            localStorage.setItem("tiempo",0);
+            document.querySelector("input[name = 'sub1']").addEventListener("click",function(evt){
+                evt.preventDefault();
+                let radios = document.querySelectorAll("input[name = 'tJuego']");
+                for(let radio of radios){
+                    if(radio.checked){
+                        localStorage.setItem("cartas",radio.value)
+                        if(radio.value == 6){
+                            localStorage.setItem("tiempo",60);
+                        }else if(radio.value == 10){
+                            localStorage.setItem("tiempo",90);
+                        }else{
+                            localStorage.setItem("tiempo",110);
+                        }
+                        //Creamos la URL del juego para redirigir
+                        let url = "";
+                        for(let i = 0; i<location.href.split("/").length -1; i++){
+                            url += location.href.split("/")[i]+"/";
+                        }
+                        url += "/juego.html";
+                        location.href = url;
+                    }
+                }
+                
+            });
+        </script>
+        <h3>Custom</h3>
+        <p>Crea tu propia dificultad y juega con tu propio reto.</p>
+        <form action="juego.html" method="post">
+            <label for="nCartas">⫸Numero de cartas: </label>
+            <input type="number" name="nCartas" id="">
+            <br>
+            <br>
+            <label for="tiempo">⫸Tiempo(en segundos): </label>
+            <input type="number">
+            <br>
+            <br>
+            <input type="submit" name="sub2" value="Jugar Custom">
+        </form>
+        <script>
+            document.querySelector("input[name = 'sub2']").addEventListener("click",function(evt){
+                evt.preventDefault();
+                let input = document.querySelectorAll("input[type = 'number']");
+                console.log(input)
+                if(input.length == 2){
+                    if(input[0].value != 0 && input[0].value % 2 == 0){
+                        if(input[1].value > 0){
+                            localStorage.setItem("cartas",input[0].value);
+                            localStorage.setItem("tiempo",input[1].value);
+                            //Creamos la URL del juego para redirigir
+                            let url = "";
+                            for(let i = 0; i<location.href.split("/").length -1; i++){
+                                url += location.href.split("/")[i]+"/";
+                            }
+                            url += "/juego.html";
+                            location.href = url;
+                        }else{
+                            input[1].placeholder = "Tiempo invalido";
+                            input[1].style.border = "1px solid red";
+                        }
+                    }else{
+                        input[0].placeholder = "N impar no valido";
+                        input[0].style.border = "1px solid red";
+                    }
+                }else{
+                    alert("ERROR: el numero de campos no es correcto");
+                }
+            });
+        </script>
+    </body>
+</html>
