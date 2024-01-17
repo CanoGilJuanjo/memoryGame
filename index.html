@@ -34,9 +34,9 @@
         </p>
         <form action="juego.html" method="post">
             <ul>
-                <li>6 cartas 3 parejas ➤ 90 segundos <input type="radio" name="tJuego" id="tJuego" value="6"></li>
-                <li>10 cartas 5 parejas ➤ 120 segundos <input type="radio" name="tJuego" id="tJuego" value="10"></li>
-                <li>20 cartas 10 parejas ➤ 160 segundos <input type="radio" name="tJuego" id="tJuego" value="20"></li>
+                <li>6 cartas 3 parejas ➤ 10 segundos <input type="radio" name="tJuego" id="tJuego" value="6"></li>
+                <li>10 cartas 5 parejas ➤ 25 segundos <input type="radio" name="tJuego" id="tJuego" value="10"></li>
+                <li>20 cartas 10 parejas ➤ 30 segundos <input type="radio" name="tJuego" id="tJuego" value="20"></li>
             </ul>
             <input type="submit" name="sub1" value="Jugar">
         </form>
@@ -50,18 +50,18 @@
                     if(radio.checked){
                         localStorage.setItem("cartas",radio.value)
                         if(radio.value == 6){
-                            localStorage.setItem("tiempo",60);
+                            localStorage.setItem("tiempo",10);
                         }else if(radio.value == 10){
-                            localStorage.setItem("tiempo",90);
+                            localStorage.setItem("tiempo",25);
                         }else{
-                            localStorage.setItem("tiempo",110);
+                            localStorage.setItem("tiempo",30);
                         }
                         //Creamos la URL del juego para redirigir
                         let url = "";
                         for(let i = 0; i<location.href.split("/").length -1; i++){
                             url += location.href.split("/")[i]+"/";
                         }
-                        url += "/juego.html";
+                        url += "juego.html";
                         location.href = url;
                     }
                 }
@@ -85,7 +85,6 @@
             document.querySelector("input[name = 'sub2']").addEventListener("click",function(evt){
                 evt.preventDefault();
                 let input = document.querySelectorAll("input[type = 'number']");
-                console.log(input)
                 if(input.length == 2){
                     if(input[0].value != 0 && input[0].value % 2 == 0){
                         input[0].style.border = "1px solid black";
@@ -97,7 +96,7 @@
                             for(let i = 0; i<location.href.split("/").length -1; i++){
                                 url += location.href.split("/")[i]+"/";
                             }
-                            url += "/juego.html";
+                            url += "juego.html";
                             location.href = url;
                         }else{
                             input[1].placeholder = "Tiempo invalido";
