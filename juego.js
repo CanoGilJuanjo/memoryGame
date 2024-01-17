@@ -13,7 +13,7 @@ function crearTablero(){
 (function(){    
     //Obtenemos las cartas y el tiempo del localStorage
     let nCartas = localStorage.getItem("cartas");
-    let contador = localStorage.getItem("tiempo");
+    let contador = localStorage.getItem("tiempo")*100;
 
     //Cuanta atras hasta terminar la partida
     if(contador == undefined || contador == null || isNaN(contador) || !isFinite(contador)){
@@ -22,14 +22,14 @@ function crearTablero(){
     }
     setInterval(
         function(){
-            if(puntos < (localStorage.getItem("cartas")/2)){
+            if(puntos < (nCartas/2)){
                 if(contador > 0 ){
-                    contador--;
-                    document.querySelector("#tiempo").innerHTML = "Tiempo: "+contador;
+                    contador -= 1;
+                    document.querySelector("#tiempo").innerHTML = "Tiempo: "+ (contador/100);
                 }
             }
         },
-        1000
+        10
     )
     crearTablero()
     //Asignamos los numeros a las cartas
