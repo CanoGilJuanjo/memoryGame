@@ -14,8 +14,25 @@ function crearTablero(){
     //Obtenemos las cartas y el tiempo del localStorage
     let nCartas = localStorage.getItem("cartas");
     let contador = localStorage.getItem("tiempo");
-    crearTablero()
 
+    //Cuanta atras hasta terminar la partida
+    if(contador == undefined || contador == null || isNaN(contador) || !isFinite(contador)){
+        contador = 0;
+        document.querySelector("#tiempo").innerHTML = "Tiempo: "+contador;
+    }
+    setInterval(
+        function(){
+            if(puntos < (localStorage.getItem("cartas")/2)){
+                if(contador > 0 ){
+                    contador--;
+                    document.querySelector("#tiempo").innerHTML = "Tiempo: "+contador;
+                }
+            }
+            console.log(contador);
+        },
+        1000
+    )
+    crearTablero()
     //Asignamos los numeros a las cartas
     let cont = 0;
     let controlBucle = 0;
@@ -58,7 +75,7 @@ function crearTablero(){
                             uno = null;
                             dos = null;
                             dos.value = uno.value = -1
-                        }else{
+                        }else if(dos.id != uno.id){
                             //Reiniciamos los estilos en caso de no ser
                             dos.style.backgroundColor = uno.style.backgroundColor = "black";
                             dos.innerHTML = uno.innerHTML = "";
@@ -91,20 +108,4 @@ function crearTablero(){
             }
         })
     }
-
-    //Cuanta atras hasta terminar la partida
-    if(contador == null || isNaN(contador) || !isFinite(contador)){
-        contador = 0;
-    }
-    setInterval(
-        function(){
-            if(puntos < (localStorage.getItem("cartas")/2)){
-                document.querySelector("#tiempo").innerHTML = "Tiempo: "+contador;
-                if(contador > 0 ){
-                    contador--;
-                }
-            }
-        },
-        1000
-    )
 })()
