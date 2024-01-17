@@ -28,7 +28,6 @@ function crearTablero(){
                     document.querySelector("#tiempo").innerHTML = "Tiempo: "+contador;
                 }
             }
-            console.log(contador);
         },
         1000
     )
@@ -77,7 +76,8 @@ function crearTablero(){
                             dos.value = uno.value = -1
                         }else if(dos.id != uno.id){
                             //Reiniciamos los estilos en caso de no ser
-                            dos.style.backgroundColor = uno.style.backgroundColor = "black";
+                            dos.style.backgroundColor = "black";
+                            uno.style.backgroundColor = "black";
                             dos.innerHTML = uno.innerHTML = "";
                             uno = null;
                             dos = null;
@@ -98,10 +98,13 @@ function crearTablero(){
                     }else{
                         //Reiniciamos los estilos en caso de no ser
                         setTimeout(function(){
-                            dos.style.backgroundColor = uno.style.backgroundColor = "black";
-                            dos.innerHTML = uno.innerHTML = "";
-                            uno = null;
-                            dos = null;
+                            if(uno != null || dos != null){
+                                dos.style.backgroundColor = "black";
+                                uno.style.backgroundColor = "black";
+                                dos.innerHTML = uno.innerHTML = "";
+                                uno = null;
+                                dos = null;
+                            }
                         },500)
                     }
                 }
